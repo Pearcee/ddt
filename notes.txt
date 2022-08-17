@@ -1,0 +1,18 @@
+
+
+python3.9 -m venv env
+source env/bin/activate
+(env)$
+
+pip install django
+django-admin startproject hello_django .
+python manage.py migrate
+python manage.py runserver
+
+
+docker-compose up -d --build
+docker-compose exec web python manage.py migrate --noinput
+docker-compose exec db psql --username=hello_django --dbname=hello_django_dev
+
+docker-compose exec web python manage.py flush --no-input
+docker-compose exec web python manage.py migrate

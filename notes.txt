@@ -5,7 +5,7 @@ source env/bin/activate
 (env)$
 
 pip install django
-django-admin startproject hello_django .
+django-admin startproject main .
 python manage.py migrate
 python manage.py runserver
 
@@ -16,3 +16,11 @@ docker-compose exec db psql --username=hello_django --dbname=hello_django_dev
 
 docker-compose exec web python manage.py flush --no-input
 docker-compose exec web python manage.py migrate
+
+
+pip install django djangorestframework
+
+# Generates the SQL code for yuou models.
+sudo docker-compose run django_recipe_api sh -c "python manage.py makemigrations" 
+# Runs the SQL commands that you generated.
+sudo docker-compose run django_recipe_api sh -c "python manage.py migrate" 
